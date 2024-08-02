@@ -34,7 +34,7 @@ def process_query():
         # Validate the request data before processing
         node_map = validate_request(requests, schema_manager.schema)
         
-        database_type = 'cypher'
+        database_type = 'metta'
         db_instance = databases[database_type]
         
         # Generate the query code
