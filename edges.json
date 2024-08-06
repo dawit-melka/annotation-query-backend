@@ -1,0 +1,362 @@
+[
+    {
+        "child_edges": [
+            {
+                "type": "transcribed to",
+                "label": "transcribed_to",
+                "is_a": "expression",
+                "source": "gene",
+                "target": "transcript",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "transcribed from",
+                "label": "transcribed_from",
+                "is_a": "expression",
+                "source": "transcript",
+                "target": "gene",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "translates to",
+                "label": "translates_to",
+                "is_a": "expression",
+                "source": "transcript",
+                "target": "protein",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "translation of",
+                "label": "translation_of",
+                "is_a": "expression",
+                "source": "protein",
+                "target": "transcript",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "gene to gene coexpression association",
+                "label": "coexpressed_with",
+                "is_a": "expression",
+                "source": "gene",
+                "target": "gene",
+                "properties": {
+                    "score": "float",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "post translational interaction",
+                "label": "interacts_with",
+                "is_a": "expression",
+                "source": "protein",
+                "target": "protein",
+                "properties": {
+                    "score": "float",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            }
+        ],
+        "parent_edge": "expression"
+    },
+    {
+        "child_edges": [
+            {
+                "type": "gene to pathway association",
+                "label": "genes_pathways",
+                "is_a": "annotation",
+                "source": "gene",
+                "target": "pathway",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "parent pathway of",
+                "label": "parent_pathway_of",
+                "is_a": "annotation",
+                "source": "pathway",
+                "target": "pathway",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "child pathway of",
+                "label": "child_pathway_of",
+                "is_a": "annotation",
+                "source": "pathway",
+                "target": "pathway",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "go subtype of",
+                "label": "subtype_of",
+                "is_a": "annotation",
+                "source": "go",
+                "target": "go",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "go gene product",
+                "label": "go_gene_product",
+                "is_a": "annotation",
+                "source": "gene ontology",
+                "target": "protein",
+                "properties": {
+                    "qualifier": "obj",
+                    "db_reference": "obj",
+                    "evidence": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "go gene",
+                "label": "go_gene",
+                "is_a": "annotation",
+                "source": "gene",
+                "target": "go",
+                "properties": {
+                    "qualifier": "obj",
+                    "db_reference": "obj",
+                    "evidence": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "go rna",
+                "label": "go_rna",
+                "is_a": "annotation",
+                "source": "non coding rna",
+                "target": "go",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "ontology has part",
+                "label": "ontology_has_part",
+                "is_a": "annotation",
+                "source": "ontology term",
+                "target": "ontology term",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "ontology part of",
+                "label": "ontology_part_of",
+                "is_a": "annotation",
+                "source": "ontology term",
+                "target": "ontology term",
+                "properties": {
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "ontology subclass of",
+                "label": "ontology_subclass_of",
+                "is_a": "annotation",
+                "source": "ontology term",
+                "target": "ontology term",
+                "properties": {
+                    "rel_type": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            }
+        ],
+        "parent_edge": "annotation"
+    },
+    {
+        "child_edges": [
+            {
+                "type": "enhancer to gene association",
+                "label": "enhancer_gene",
+                "is_a": "regulatory association",
+                "source": "enhancer",
+                "target": "gene",
+                "properties": {
+                    "score": "float",
+                    "biological_context": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "promoter to gene association",
+                "label": "promoter_gene",
+                "is_a": "regulatory association",
+                "source": "promoter",
+                "target": "gene",
+                "properties": {
+                    "score": "float",
+                    "biological_context": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "super enhancer to gene association",
+                "label": "super_enhancer_gene",
+                "is_a": "regulatory association",
+                "source": "super enhancer",
+                "target": "gene",
+                "properties": {
+                    "score": "float",
+                    "biological_context": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "transcription factor to gene association",
+                "label": "tf_gene",
+                "is_a": "regulatory association",
+                "source": "gene",
+                "target": "gene",
+                "properties": {
+                    "evidence": "str[]",
+                    "detection_method": "str",
+                    "databases": "str[]",
+                    "evidence_type": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "regulatory region to gene association",
+                "label": "regulatory_region_gene",
+                "is_a": "regulatory association",
+                "source": "regulatory_region",
+                "target": "gene",
+                "properties": {
+                    "abc_score": "float",
+                    "biological_context": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            }
+        ],
+        "parent_edge": "regulatory association"
+    },
+    {
+        "child_edges": [
+            {
+                "type": "gtex variant to gene expression association",
+                "label": "gtex_variant_gene",
+                "is_a": "related to at instance level",
+                "source": "snp",
+                "target": "gene",
+                "properties": {
+                    "slope": "float",
+                    "maf": "float",
+                    "p_value": "float",
+                    "q_value": "float",
+                    "biological_context": "str",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "topld in linkage disequilibrium with",
+                "label": "in_ld_with",
+                "is_a": "related to at instance level",
+                "source": "snp",
+                "target": "snp",
+                "properties": {
+                    "ancestry": "str",
+                    "r2": "float",
+                    "d_prime": "float",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "lower resolution structure",
+                "label": "lower_resolution",
+                "is_a": "related to at instance level",
+                "source": "chromosome_chain",
+                "target": "chromosome_chain",
+                "properties": {}
+            },
+            {
+                "type": "located on chain",
+                "label": "located_on_chain",
+                "is_a": "related to at instance level",
+                "source": "position_entity",
+                "target": "chromosome_chain",
+                "properties": {}
+            }
+        ],
+        "parent_edge": "related to at instance level"
+    },
+    {
+        "child_edges": [
+            {
+                "type": "upstream gene to variant association",
+                "label": "upstream_gene",
+                "is_a": "closest gene to variant association",
+                "source": "snp",
+                "target": "gene",
+                "properties": {
+                    "chr": "str",
+                    "pos": "int",
+                    "distance": "int",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "downstream gene to variant association",
+                "label": "downstream_gene",
+                "is_a": "closest gene to variant association",
+                "source": "snp",
+                "target": "gene",
+                "properties": {
+                    "chr": "str",
+                    "pos": "int",
+                    "distance": "int",
+                    "source": "str",
+                    "source_url": "str"
+                }
+            },
+            {
+                "type": "in gene to variant association",
+                "label": "in_gene",
+                "is_a": "closest gene to variant association",
+                "source": "snp",
+                "target": "gene",
+                "properties": {}
+            }
+        ],
+        "parent_edge": "closest gene to variant association"
+    }
+
+]

@@ -2,12 +2,22 @@ from flask import Flask, request, jsonify, Response
 import logging
 import json
 from app import app, databases, schema_manager
-import itertools
-from app.lib import validate_request 
+import configparser
+import os
+
 # Setup basic logging
 logging.basicConfig(level=logging.DEBUG)
 
-@app.route('/nodes', methods=['GET'])
+# Load the config file
+config_path = os.path.join(os.path.dirname(__file__), '..', 'config', 'config.ini')
+config = configparser.ConfigParser()
+config.read(config_path)
+
+# Check if the file is read correctly
+if not config.read(config_path):
+    logging.error(f"Config file not found at: {config_path}")
+    raise FileNotFoundError(f"Config file found at: {config_path}")
+
 def get_nodes_endpoint():
     nodes = json.dumps(schema_manager.get_nodes(), indent=4)
     return Response(nodes, mimetype='application/json')
@@ -27,29 +37,18 @@ def process_query():
     data = request.get_json()
     if not data or 'requests' not in data:
         return jsonify({"error": "Missing requests data"}), 400
-
+    database_type = config['database']['type']# data.get('database')
+    # if not database_type or database_type not in databases:
+    #     return jsonify({"error": "Invalid or missing database parameter"}), 400
     try:
-        requests = data['requests']
-        
-        # Validate the request data before processing
-        node_map = validate_request(requests, schema_manager.schema)
-        
-        database_type = 'metta'
         db_instance = databases[database_type]
-        
-        # Generate the query code
-        query_code = db_instance.query_Generator(requests, node_map)
-        
-        # Run the query and parse the results
+        requests = data['requests']
+        query_code = db_instance.query_Generator(requests, schema_manager.schema)
         result = db_instance.run_query(query_code)
         parsed_result = db_instance.parse_and_serialize(result, schema_manager.schema)
-        
-        response_data = {
-            "nodes": parsed_result[0],
-            "edges": parsed_result[1]
-        }
-        
-        formatted_response = json.dumps(response_data, indent=4)
+
+        formatted_response = json.dumps(parsed_result, indent=None) # removed indent=4 because am getting /n on the response
         return Response(formatted_response, mimetype='application/json')
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+

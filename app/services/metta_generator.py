@@ -5,6 +5,7 @@ import re
 import json
 import uuid
 from .query_generator_interface import QueryGeneratorInterface
+from app.lib import validate_request 
 
 class MeTTa_Query_Generator(QueryGeneratorInterface):
     def __init__(self, dataset_path: str):
@@ -43,7 +44,9 @@ class MeTTa_Query_Generator(QueryGeneratorInterface):
             node_representation += f' ({key} ({node_type + " " + identifier}) {value})'
         return node_representation
 
-    def query_Generator(self, data,node_map):
+    def query_Generator(self, data, schema):
+
+        node_map = validate_request(data, schema)
 
         if node_map is None:
             raise Exception('error')
@@ -88,10 +91,13 @@ class MeTTa_Query_Generator(QueryGeneratorInterface):
         for predicate in predicates:
             predicate_type = predicate['type'].replace(" ", "_")
             source_id = predicate['source']
+            print("source_id", source_id)
             target_id = predicate['target']
+            print("target_id", target_id)
 
             # Handle source node
             source_node = node_map[source_id]
+            print("source_node", source_node)
             if not source_node['id']:
                 node_identifier = "$" + source_id
                 metta_output += self.construct_node_representation(source_node, node_identifier)
@@ -113,7 +119,7 @@ class MeTTa_Query_Generator(QueryGeneratorInterface):
             output += f' ({predicate_type} {source} {target})'
 
         metta_output += f' ){output}))'
-        # print("metta_output:", metta_output)
+        print("metta_output:", metta_output)
         return metta_output
 
 
@@ -146,12 +152,15 @@ class MeTTa_Query_Generator(QueryGeneratorInterface):
 
         return result
         
+    # def parse_metta(self, input_string):
+    #     parsed_metta = self.metta.parse_all(input_string)
+    #     print("parsed_metta",parsed_metta)
     def parse_and_serialize_properties(self, input):
         nodes = {}
         relationships_dict = {}
         result = []
         tuples = self.metta_seralizer(input)
-        # print("result", tuples)
+        print("result", tuples)
 
         for match in tuples:
             graph_attribute = match[0]
@@ -179,17 +188,19 @@ class MeTTa_Query_Generator(QueryGeneratorInterface):
                 if key not in relationships_dict:
                     relationships_dict[key] = {
                         "label": predicate,
-                        "source_node": f"{source} {source_id}",
-                        "target_node": f"{target} {target_id}",
+                        "source": f"{source} {source_id}",
+                        "target": f"{target} {target_id}",
                     }
-                relationships_dict[key][property_name] = value
+                if property_name == "source": 
+                    relationships_dict[key]["source_data"] = value
 
+                relationships_dict[key][property_name] = value
         node_list = [{"data": node} for node in nodes.values()]
         relationship_list = [{"data": relationship} for relationship in relationships_dict.values()]
 
         result.append(node_list)
         result.append(relationship_list)
-        return result
+        return {"nodes": node_list, "edges": relationship_list}
 
     def get_node_properties(self, results, schema):
         metta = ('''!(match &space (,''')
@@ -249,3 +260,4 @@ class MeTTa_Query_Generator(QueryGeneratorInterface):
                     res = self.recurssive_seralize(metta_symbol.get_children(), [])
                     result.append(tuple(res))
         return result
+

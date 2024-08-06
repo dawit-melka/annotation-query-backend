@@ -18,6 +18,7 @@ class SchemaManager:
             if 'represented_as' in attributes and attributes['represented_as'] == 'node' \
                     and 'is_a' in attributes and attributes['is_a'] not in parent_nodes:
                 parent_nodes.add(attributes['is_a'])
+        print(parent_nodes)
         return list(parent_nodes)
 
     def parent_edges(self):

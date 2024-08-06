@@ -26,14 +26,6 @@ curl -X POST http://localhost:5000/query -H "Content-Type: application/json" -d 
           "properties": {
           "protein_name": "MKKS"
         }
-      },
-      {
-        "node_id": "n4",
-        "id": "",
-        "type": "protein",
-          "properties": {
-          "protein_name": "MKKS"
-        }
       }
     ],
     "predicates": [
@@ -48,45 +40,6 @@ curl -X POST http://localhost:5000/query -H "Content-Type: application/json" -d 
         "target": "n3"
       }
     ]
-  }
-}'
-
-
-curl --location 'http://localhost:5000/query' \
---header 'Content-Type: application/json' \
---data '{
-  "requests": {
-    "nodes": [
-      {
-        "node_id": "n1",
-        "id": "",
-        "type": "gene",
-        "properties": {
-          "gene_type": "protein_coding"
-        }
-      },
-      {
-        "node_id": "n2",
-        "id": "",
-        "type": "transcript",
-        "properties": {}
-      },
-      {
-	"node_id": "n3",
-        "id": "",
-        "type": "protein",
-        "properties": {
-          "protein_name": "ANKE1"
-        }
-      }
-    ],
-    "predicates": [
-      {
-        "type": "transcribed to",
-        "source": "n1",
-        "target": "n2"
-      }
-   ]
   }
 }'
 

@@ -1,3 +1,6 @@
-biocypher-log/
-**/__pycache__/
+./output/
+./output.zip/
+./__pycache__/
+./biocypher-log/
 dataset/
+

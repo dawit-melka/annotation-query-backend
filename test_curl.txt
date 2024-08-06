@@ -1,0 +1,31 @@
+curl --location 'http://172.17.0.2:5000/query' \
+--header 'Content-Type: application/json' \
+--data '{
+  "requests": {
+    "nodes": [
+      {
+        "node_id": "n1",
+        "id": "",
+        "type": "gene",
+        "properties": {
+          "gene_type": "protein_coding",
+          "start": 9537370,
+          "end": 9839076
+        }
+      },
+      {
+        "node_id": "n2",
+        "id": "",
+        "type": "transcript",
+        "properties": {}
+      }
+    ],
+    "predicates": [
+      {
+        "type": "transcribed to",
+        "source": "n1",
+        "target": "n2"
+      }
+   ]
+  }
+}'
